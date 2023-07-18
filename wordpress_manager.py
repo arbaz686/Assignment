@@ -36,12 +36,13 @@ def install_docker_compose():
         install_dependency('docker-compose')
 
 
-def create_wordpress_site(site_name):
+def create_wordpress_site(args):
     subprocess.call(['docker-compose', 'up', '-d'])
+    open_browser(args.site_name)
 
 
-def add_hosts_entry(site_name):
-    hosts_entry = '127.0.0.1 ' + site_name
+def add_hosts_entry(args):
+    hosts_entry = '127.0.0.1 ' + args.site_name
     hosts_file_path = '/etc/hosts' if sys.platform != 'win32' else r'C:\Windows\System32\drivers\etc\hosts'
 
     with open(hosts_file_path, 'a') as hosts_file:
@@ -51,12 +52,13 @@ def add_hosts_entry(site_name):
 def open_browser(site_name):
     webbrowser.open('http://' + site_name)
 
-def enable_disable_site(enable):
-    command = 'up' if enable else 'down'
+
+def enable_disable_site(args):
+    command = 'up' if args.enable else 'down'
     subprocess.call(['docker-compose', command])
 
 
-def delete_site():
+def delete_site(args):
     subprocess.call(['docker-compose', 'down', '-v'])
     site_name = input("Enter the site name to delete: ")
     if sys.platform != 'win32':
@@ -89,18 +91,12 @@ def main():
 
     args = parser.parse_args()
 
-    site_name = args.site_name
-
     if args.subcommand == 'create':
         install_docker()
         install_docker_compose()
-        add_hosts_entry(site_name)
-        args.func(site_name)
-        open_browser(site_name)
-    elif args.subcommand == 'enable_disable':
-        args.func(args.enable)
-    elif args.subcommand == 'delete':
-        args.func()
+        add_hosts_entry(args)
+
+    args.func(args)
 
 
 if __name__ == '__main__':
