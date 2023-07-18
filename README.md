@@ -6,11 +6,11 @@ This script allows you to manage WordPress sites using the command line interfac
 
 1. Clone the repository:
 
-   git clone <repository_url>
+   `git clone <repository_url>`
 
 2. Install the required dependencies:
 
-   pip install -r requirements.txt
+   `pip install -r requirements.txt`
 
    **Note:** Make sure you have Python and pip installed on your system.
 
@@ -21,7 +21,7 @@ This script allows you to manage WordPress sites using the command line interfac
 
 ## Usage
 
-python wordpress_manager.py <site_name> <command> [options]
+`python wordpress_manager.py <site_name> <command> [options]`
 
 Replace `<site_name>` with the name of your WordPress site.
 
@@ -29,13 +29,13 @@ Replace `<site_name>` with the name of your WordPress site.
 
 - `create`: Create a new WordPress site.
 
-  python wordpress_manager.py <site_name> create
+  `python wordpress_manager.py <site_name> create`
 
   This command will install and set up a new WordPress site using Docker and Docker Compose. It will create the necessary containers and start the services.
 
 - `enable_disable`: Enable or disable a WordPress site.
 
-  python wordpress_manager.py <site_name> enable_disable [--enable | --disable]
+  `python wordpress_manager.py <site_name> enable_disable [--enable | --disable]`
 
   Use the `--enable` option to enable the site, or use the `--disable` option to disable the site. This command will start or stop the services for the specified WordPress site.
 
@@ -51,24 +51,24 @@ Replace `<site_name>` with the name of your WordPress site.
 
 1. Create a new WordPress site named "myblog":
 
-   python wordpress_manager.py myblog create
+   `python wordpress_manager.py myblog creat`
 
    This command will set up a new WordPress site named "myblog" using Docker and Docker Compose.
 
 2. Enable the "myblog" site:
 
-   python wordpress_manager.py myblog enable_disable --enable
+   `python wordpress_manager.py myblog enable_disable --enable`
 
    This command will start the services for the "myblog" WordPress site.
 
 3. Disable the "myblog" site:
 
-   python wordpress_manager.py myblog enable_disable --disable
+   `python wordpress_manager.py myblog enable_disable --disable`
 
    This command will stop the services for the "myblog" WordPress site.
 
 4. Delete the "myblog" site:
 
-   python wordpress_manager.py myblog delete
+   `python wordpress_manager.py myblog delete`
 
    This command will remove the "myblog" WordPress site, including all associated containers and volumes.
