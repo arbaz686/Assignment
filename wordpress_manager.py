@@ -7,10 +7,10 @@ import webbrowser
 
 def check_dependency_installed(dependency):
     try:
-        subprocess.check_output([dependency, '--version'])
-        return True
-    except OSError:
-        return False
+        output = subprocess.check_output([dependency, '--version'], stderr=subprocess.STDOUT, universal_newlines=True)
+        return output.strip()
+    except subprocess.CalledProcessError:
+        return None
 
 
 def install_dependency(dependency):
@@ -91,9 +91,22 @@ def main():
 
     args = parser.parse_args()
 
-    if args.subcommand == 'create':
+    docker_version = check_docker_installed()
+    docker_compose_version = check_docker_compose_installed()
+
+    if docker_version:
+        print(f"Docker version: {docker_version}")
+    else:
+        print("Docker is not installed.")
         install_docker()
+
+    if docker_compose_version:
+        print(f"Docker Compose version: {docker_compose_version}")
+    else:
+        print("Docker Compose is not installed.")
         install_docker_compose()
+
+    if args.subcommand == 'create':
         add_hosts_entry(args)
 
     args.func(args)
